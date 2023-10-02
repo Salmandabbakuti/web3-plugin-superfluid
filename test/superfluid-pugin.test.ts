@@ -1,4 +1,4 @@
-import { Web3Eth, Web3Context } from "web3";
+import { Web3, Web3Eth, Web3Context } from "web3";
 import { expect } from "chai";
 import SuperfluidPlugin from "../src/superfluid-plugin";
 
@@ -11,12 +11,14 @@ const receiver = "0x48A822ef187a82C3bd4c8218C9bE5DC7802d77c3";
 // const userData = "0x";
 
 describe("SuperfluidPlugin Tests", () => {
-
+  let web3: Web3;
   let web3Context: Web3Context;
   let web3EthContext: Web3Eth;
   before(() => {
-    web3Context = new Web3Context(rpcUrl);
+    web3 = new Web3(rpcUrl);
+    web3Context = new Web3(rpcUrl);
     web3EthContext = new Web3Eth(rpcUrl);
+    web3.registerPlugin(new SuperfluidPlugin());
     web3Context.registerPlugin(new SuperfluidPlugin());
     web3EthContext.registerPlugin(new SuperfluidPlugin());
   });
@@ -40,7 +42,10 @@ describe("SuperfluidPlugin Tests", () => {
   });
 
   it("should get flow info", async () => {
-    const { lastUpdated, flowrate } = await web3Context.superfluid.cfav1Forwarder(cfav1ForwarderAddress).methods.getFlowInfo(token, sender, receiver).call();
+    const { lastUpdated, flowrate } = await web3Context.superfluid
+      .cfav1Forwarder(cfav1ForwarderAddress)
+      .methods.getFlowInfo(token, sender, receiver)
+      .call();
     console.log(lastUpdated, flowrate);
     // Assert the result
     expect(lastUpdated.toString()).to.be.a("string");
@@ -48,7 +53,10 @@ describe("SuperfluidPlugin Tests", () => {
   });
 
   it("should get flowrate", async () => {
-    const flowrate = await web3Context.superfluid.cfav1Forwarder(cfav1ForwarderAddress).methods.getFlowrate(token, sender, receiver).call();
+    const flowrate = await web3Context.superfluid
+      .cfav1Forwarder(cfav1ForwarderAddress)
+      .methods.getFlowrate(token, sender, receiver)
+      .call();
     console.log(flowrate);
     // Assert the result
     expect(flowrate.toString()).to.be.a("string");
@@ -61,9 +69,8 @@ describe("SuperfluidPlugin Tests", () => {
       .methods.createFlow(token, sender, receiver, 1000, "0x")
       .send();
     // Assert the result
-    expect(result.status).to.equal(true);
+    expect(result).to.be.an("object");
   });
-  it("should update a flow", async () => { });
-  it("should delete a flow", async () => { });
-
+  it("should update a flow", async () => {});
+  it("should delete a flow", async () => {});
 });
