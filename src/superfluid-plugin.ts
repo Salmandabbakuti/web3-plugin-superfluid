@@ -1,25 +1,15 @@
-import {
-  Address,
-  Contract,
-  ContractAbi,
-  Web3PluginBase,
-  validator
-} from "web3";
+import { Contract, Web3PluginBase } from "web3";
+import cfav1ForwarderAbi from "./abis/cfav1Forwarder";
 
 export default class SuperfluidPlugin extends Web3PluginBase {
   //TODO: implement your plugin
   public pluginNamespace = "superfluid";
 
-  public async exampleMethod() {
-    const abi: ContractAbi = [];
-    const address: Address = "";
-    const _contract: Contract<ContractAbi> = new Contract(abi, address);
-
+  public cfav1Forwarder(address: string): Contract<typeof cfav1ForwarderAbi> {
+    const cfav1ForwarderContract = new Contract(cfav1ForwarderAbi, address);
     // Adds Web3Context to Contract instance
-    _contract.link(this);
-
-    // Calls the contract method
-    return await _contract.methods.exampleMethod().call();
+    cfav1ForwarderContract.link(this);
+    return cfav1ForwarderContract;
   }
 }
 
