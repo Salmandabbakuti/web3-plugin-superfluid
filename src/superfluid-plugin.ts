@@ -15,8 +15,6 @@ export default class SuperfluidPlugin extends Web3PluginBase {
 
 // Module Augmentation
 declare module "web3" {
-  // Here is where you're adding your plugin's
-  // class inside Web3Context class
   interface Web3Context {
     superfluid: SuperfluidPlugin;
   }

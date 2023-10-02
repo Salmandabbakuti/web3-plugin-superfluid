@@ -16,8 +16,9 @@
     "superfluid-web3",
     "superfluid-auth"
   ],
-  "dependencies": {
-    "web3": "^4.1.2"
+  "dependencies": {},
+  "peerDependencies": {
+    "web3": ">=4.1.2"
   },
   "devDependencies": {
     "@types/chai": "^4.3.6",
@@ -29,7 +30,8 @@
     "mocha": "^10.2.0",
     "ts-node": "^10.9.1",
     "tslib": "^2.6.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "web3": "^4.1.2"
   },
   "repository": {
     "type": "git",
