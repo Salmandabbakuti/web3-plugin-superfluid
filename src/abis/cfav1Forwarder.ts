@@ -1,4 +1,3 @@
-import { ContractAbi } from "web3";
 const abi = [
   {
     inputs: [
@@ -179,6 +178,6 @@ const abi = [
     stateMutability: "nonpayable",
     type: "function"
   }
-] as ContractAbi;
+] as const;
 
 export default abi;
