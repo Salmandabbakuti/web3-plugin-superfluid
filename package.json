@@ -1,11 +1,11 @@
 {
   "name": "web3-plugin-superfluid",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Superfluid Web3.js Plugin",
   "author": "Salman Dabbakuti",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/superfluid-plugin.js",
+  "typings": "dist/superfluid-plugin.d.ts",
   "scripts": {
     "test": "mocha --r ts-node/register 'test/**/*.ts'",
     "build": "tsc"

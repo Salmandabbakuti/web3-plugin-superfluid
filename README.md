@@ -4,6 +4,8 @@ The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to
 
 ## Installation
 
+> Note: Make sure you are using `web3` version 4.0.0 or higher in your project.
+
 ```bash
 npm install web3-plugin-superfluid
 ```
@@ -35,7 +37,7 @@ console.log("FlowRate: ", flowRate.toString());
 
 To publish a new version of the package to npm, run the following command:
 
-```shell
+```bash
 npm run build
 
 npm publish
