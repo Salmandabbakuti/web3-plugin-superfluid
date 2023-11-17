@@ -47,6 +47,11 @@ npm publish
 
 ### Change Log
 
+#### 0.0.8
+
+- cfav1Forwarder, host contract type exports, function natspec comments
+- Tests Cleanup and refactoring
+
 #### 0.0.7
 
 - Fixed Types not being interpreted correctly, Plugin named export
