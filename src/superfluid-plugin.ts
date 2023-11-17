@@ -1,5 +1,6 @@
 import { Contract, Web3PluginBase, validator } from "web3";
 import cfav1ForwarderAbi from "./abis/cfav1Forwarder";
+import hostAbi from "./abis/host";
 
 export default class SuperfluidPlugin extends Web3PluginBase {
   //TODO: implement your plugin
@@ -12,6 +13,15 @@ export default class SuperfluidPlugin extends Web3PluginBase {
     // Adds Web3Context to Contract instance
     cfav1ForwarderContract.link(this);
     return cfav1ForwarderContract;
+  }
+
+  public host(address: string): Contract<typeof hostAbi> {
+    if (!validator.isAddress(address))
+      throw new Error("Superfluid Plugn: Invalid Host Address");
+    const hostContract = new Contract(hostAbi, address);
+    // Adds Web3Context to Contract instance
+    hostContract.link(this);
+    return hostContract;
   }
 }
 
