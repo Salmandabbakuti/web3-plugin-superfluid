@@ -1,6 +1,6 @@
 import { Web3, Web3Eth, Web3Context } from "web3";
 import { expect } from "chai";
-import SuperfluidPlugin from "../src/superfluid-plugin";
+import { SuperfluidPlugin } from "../src";
 import "dotenv/config";
 
 const rpcUrl = "https://rpc-mumbai.maticvigil.com";

@@ -1,5 +1,7 @@
 # Superfluid Web3 Plugin
 
+[![npm version](https://badge.fury.io/js/web3-plugin-superfluid.svg)](https://badge.fury.io/js/web3-plugin-superfluid)
+
 The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Superfluid Money Streaming Protocol](https://superfluid.finance). This plugin provides convenient methods for creating, updating, deleting, and retrieving information related to money streams using CFAForwarder and host contracts.
 
 ## Installation
@@ -14,7 +16,7 @@ npm install web3-plugin-superfluid
 
 ```js
 import { Web3 } from "web3";
-import SuperfluidPlugin from "web3-plugin-superfluid";
+import { SuperfluidPlugin } from "web3-plugin-superfluid";
 
 const web3 = new Web3("http://localhost:8545"); // Any RPC node you wanted to connect with
 web3.registerPlugin(new SuperfluidPlugin());
@@ -44,6 +46,10 @@ npm publish
 ```
 
 ### Change Log
+
+#### 0.0.7
+
+- Fixed Types not being interpreted correctly, Plugin named export
 
 #### 0.0.1
 

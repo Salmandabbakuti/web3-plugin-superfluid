@@ -2,7 +2,7 @@ import { Contract, Web3PluginBase, validator } from "web3";
 import cfav1ForwarderAbi from "./abis/cfav1Forwarder";
 import hostAbi from "./abis/host";
 
-export default class SuperfluidPlugin extends Web3PluginBase {
+export class SuperfluidPlugin extends Web3PluginBase {
   //TODO: implement your plugin
   public pluginNamespace = "superfluid";
 
