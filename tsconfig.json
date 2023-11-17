@@ -3,7 +3,7 @@
   "include": ["src"],
   "exclude": ["./test/", "./node_modules/", "./dist/"],
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es5",
     "module": "commonjs",
     "importHelpers": true,
     // output .d.ts declaration files for consumers
