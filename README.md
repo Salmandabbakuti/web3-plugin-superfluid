@@ -59,7 +59,7 @@ const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
 const host = web3.superfluid.host(hostAddress);
 ```
 
-#### With Metamask
+#### With Browser Wallets(i.e Metamask)
 
 ```js
 import { Web3 } from "web3";
