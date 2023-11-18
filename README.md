@@ -6,13 +6,15 @@ The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to
 
 ## Installation
 
-> Note: Make sure you are using `web3` version 4.0.0 or higher in your project.
+> Note: Make sure you are using `web3` version 4.0.2 or higher in your project.
 
 ```bash
-npm install web3-plugin-superfluid
+npm install web3-plugin-superfluid web3@latest --save
 ```
 
 ## Usage
+
+### Basic Usage
 
 ```js
 import { Web3 } from "web3";
@@ -35,6 +37,96 @@ const flowRate = await cfav1Forwarder.methods
 console.log("FlowRate: ", flowRate.toString());
 ```
 
+### Connecting Accounts to Web3
+
+#### With Private Key
+
+```js
+import { Web3 } from "web3";
+import { SuperfluidPlugin } from "web3-plugin-superfluid";
+
+const web3 = new Web3("https://rpc-mumbai.maticvigil.com/"); // Any RPC node you wanted to connect with
+
+// Adding account to web3 with private key
+const wallet = web3.eth.accounts.wallet.add("0x..."); // private key
+const account = wallet.get(0);
+
+web3.registerPlugin(new SuperfluidPlugin());
+
+const cfav1ForwarderAddress = "0x..."; // varies based on network
+const hostAddress = "0x..."; // varies based on network
+const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
+const host = web3.superfluid.host(hostAddress);
+```
+
+#### With Metamask
+
+```js
+import { Web3 } from "web3";
+import { SuperfluidPlugin } from "web3-plugin-superfluid";
+
+const web3 = new Web3(window.ethereum);
+
+const [account] = await window.ethereum.request({
+  method: "eth_requestAccounts"
+});
+
+web3.registerPlugin(new SuperfluidPlugin());
+
+const cfav1ForwarderAddress = "0x..."; // varies based on network
+const hostAddress = "0x..."; // varies based on network
+const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
+const host = web3.superfluid.host(hostAddress);
+```
+
+### Creating flow:
+
+```js
+const tx = await cfav1Forwarder.methods
+  .createFlow(token, sender, receiver, 1000, "0x")
+  .send({ from: account });
+```
+
+### Updating flow:
+
+```js
+const tx = await cfav1Forwarder.methods
+  .updateFlow(token, sender, receiver, 1800, "0x")
+  .send({ from: account });
+```
+
+### Deleting flow:
+
+```js
+const tx = await cfav1Forwarder.methods
+  .deleteFlow(token, sender, receiver, "0x")
+  .send({ from: account });
+```
+
+### Retrieving flow:
+
+```js
+const flow = await cfav1Forwarder.methods
+  .getFlowInfo(token, sender, receiver)
+  .call();
+```
+
+### Creating flow with Host:
+
+```js
+const tx = await host.methods
+  .callAgreement(
+    cfav1Address, // keep in mind that address is cfa address not cfav1Forwarder address
+    cfav1Forwarder.methods
+      .createFlow(token, sender, receiver, 1000, "0x")
+      .encodeABI(),
+    "0x"
+  )
+  .send({ from: account });
+```
+
+Refer [Superfluid docs](https://docs.superfluid.finance/superfluid/developers/constant-flow-agreement-cfa) for more on respective contract methods.
+
 ### Publishing
 
 To publish a new version of the package to npm, run the following command:
@@ -46,6 +138,11 @@ npm publish
 ```
 
 ### Change Log
+
+#### 0.0.9
+
+- Added examples for creating, updating, deleting, and retrieving flows using CFAv1Forwarder and Host contracts
+- Added examples for connecting accounts to web3 using private key and metamask
 
 #### 0.0.8
 
