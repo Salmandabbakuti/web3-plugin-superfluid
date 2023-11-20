@@ -4,6 +4,14 @@
 
 The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Superfluid Money Streaming Protocol](https://superfluid.finance). This plugin provides convenient methods for creating, updating, deleting, and retrieving information related to money streams using CFAForwarder and host contracts.
 
+### Features
+
+- [Money Streaming(CFA)](https://docs.superfluid.finance/superfluid/developers/constant-flow-agreement-cfa)
+
+- [Superfluid Host](https://docs.superfluid.finance/superfluid/protocol-tutorials/protocol-tutorial-host)
+
+- [Distributions(IDA)](https://docs.superfluid.finance/superfluid/developers/instant-distribution-agreement-ida) - Coming Soon
+
 ## Installation
 
 > Note: Make sure you are using `web3` version 4.0.2 or higher in your project.
@@ -57,7 +65,7 @@ const cfav1ForwarderAddress = "0x..."; // varies based on network
 const cfav1Address = "0x..."; // varies based on network
 const hostAddress = "0x..."; // varies based on network
 const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
-const cfav1 = web3.superfluid.cfa(cfav1Address);
+const cfav1 = web3.superfluid.cfav1(cfav1Address);
 const host = web3.superfluid.host(hostAddress);
 ```
 
@@ -80,7 +88,7 @@ const cfav1Address = "0x..."; // varies based on network
 const hostAddress = "0x..."; // varies based on network
 const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
 const host = web3.superfluid.host(hostAddress);
-const cfav1 = web3.superfluid.cfa(cfav1Address);
+const cfav1 = web3.superfluid.cfav1(cfav1Address);
 ```
 
 ### Creating flow:
@@ -157,7 +165,7 @@ npm run build
 npm publish
 ```
 
-### Change Log
+## Change Log
 
 #### 0.1.0
 
@@ -187,13 +195,13 @@ npm publish
 - [Superfluid Documentation](https://docs.superfluid.finance)
 - [Web3js Plugins Documentation](https://docs.web3js.org/guides/web3_plugin_guide/)
 
-### Safety
+## Safety
 
 This is experimental software and subject to change over time.
 
 This package is not audited and has not been tested for security. Use at your own risk.
 I do not give any warranties and will not be liable for any loss incurred through any use of this codebase.
 
-# License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
