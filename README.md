@@ -1,6 +1,6 @@
 # Superfluid Web3 Plugin
 
-[![npm version](https://badge.fury.io/js/web3-plugin-superfluid.svg)](https://badge.fury.io/js/web3-plugin-superfluid)
+[![npm version](https://badge.fury.io/js/web3-plugin-superfluid.svg)](https://www.npmjs.com/package/web3-plugin-superfluid)
 
 The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Superfluid Money Streaming Protocol](https://superfluid.finance). This plugin provides convenient methods for creating, updating, deleting, and retrieving information related to money streams using CFAForwarder and host contracts.
 
@@ -54,8 +54,10 @@ const account = wallet.get(0);
 web3.registerPlugin(new SuperfluidPlugin());
 
 const cfav1ForwarderAddress = "0x..."; // varies based on network
+const cfav1Address = "0x..."; // varies based on network
 const hostAddress = "0x..."; // varies based on network
 const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
+const cfav1 = web3.superfluid.cfa(cfav1Address);
 const host = web3.superfluid.host(hostAddress);
 ```
 
@@ -74,32 +76,64 @@ const [account] = await window.ethereum.request({
 web3.registerPlugin(new SuperfluidPlugin());
 
 const cfav1ForwarderAddress = "0x..."; // varies based on network
+const cfav1Address = "0x..."; // varies based on network
 const hostAddress = "0x..."; // varies based on network
 const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
 const host = web3.superfluid.host(hostAddress);
+const cfav1 = web3.superfluid.cfa(cfav1Address);
 ```
 
 ### Creating flow:
 
 ```js
+// using cfav1forwarder
 const tx = await cfav1Forwarder.methods
-  .createFlow(token, sender, receiver, 1000, "0x")
+  .createFlow(token, sender, receiver, flowRate, "0x")
+  .send({ from: account });
+
+// using host
+const callData = cfav1.methods
+  .createFlow(token, receiver, flowRate, "0x")
+  .encodeABI();
+
+const tx = await host.methods
+  .callAgreement(cfav1Address, callData, "0x")
   .send({ from: account });
 ```
 
 ### Updating flow:
 
 ```js
+// using cfav1forwarder
 const tx = await cfav1Forwarder.methods
-  .updateFlow(token, sender, receiver, 1800, "0x")
+  .updateFlow(token, sender, receiver, flowRate, "0x")
+  .send({ from: account });
+
+// using host
+const callData = cfav1.methods
+  .updateFlow(token, receiver, flowRate, "0x")
+  .encodeABI();
+
+const tx = await host.methods
+  .callAgreement(cfav1Address, callData, "0x")
   .send({ from: account });
 ```
 
 ### Deleting flow:
 
 ```js
+// using cfav1forwarder
 const tx = await cfav1Forwarder.methods
   .deleteFlow(token, sender, receiver, "0x")
+  .send({ from: account });
+
+// using host
+const callData = cfav1.methods
+  .deleteFlow(token, sender, receiver, "0x")
+  .encodeABI();
+
+const tx = await host.methods
+  .callAgreement(cfav1Address, callData, "0x")
   .send({ from: account });
 ```
 
@@ -109,20 +143,6 @@ const tx = await cfav1Forwarder.methods
 const flow = await cfav1Forwarder.methods
   .getFlowInfo(token, sender, receiver)
   .call();
-```
-
-### Creating flow with Host:
-
-```js
-const tx = await host.methods
-  .callAgreement(
-    cfav1Address, // keep in mind that address is cfa address not cfav1Forwarder address
-    cfav1Forwarder.methods
-      .createFlow(token, sender, receiver, 1000, "0x")
-      .encodeABI(),
-    "0x"
-  )
-  .send({ from: account });
 ```
 
 Refer [Superfluid docs](https://docs.superfluid.finance/superfluid/developers/constant-flow-agreement-cfa) for more on respective contract methods.
@@ -138,6 +158,11 @@ npm publish
 ```
 
 ### Change Log
+
+#### 0.1.0
+
+- Added support for CFAv1 contract
+- Added examples on encoding calldata with cfav1 contract for creating, updating, deleting in host's callAgreement method
 
 #### 0.0.9
 
