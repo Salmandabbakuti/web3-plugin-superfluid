@@ -3,9 +3,9 @@
   "include": ["src"],
   "exclude": ["./test/", "./node_modules/", "./dist/"],
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2020",
     "module": "commonjs",
-    "importHelpers": true,
+    "importHelpers": false,
     // output .d.ts declaration files for consumers
     "declaration": true,
     // output .js.map sourcemap files for consumers
