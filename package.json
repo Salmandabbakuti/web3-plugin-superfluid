@@ -20,12 +20,12 @@
     "web3": ">= 4.0.2 < 5"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.10",
-    "@types/mocha": "^10.0.4",
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.5",
     "chai": "^4.3.10",
     "mocha": "^10.2.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   },
   "repository": {
     "type": "git",
