@@ -91,14 +91,30 @@ describe("SuperfluidPlugin Method Tests", () => {
   });
 
   it("should get subscription with idav1", async () => {
-    const indexId = 1;
+    const indexId = 0;
+    const publisher = "0x018762341dda10cfaa2fc19966d2279dc70b6784";
+    const subscriber = "0x18e23191359f9dc403ba2942b87a896535c935c4";
+
     const { units, exist, approved } = await idav1.methods
-      .getSubscription(token, sender, indexId, receiver)
+      .getSubscription(token, publisher, indexId, subscriber)
       .call();
     // expect to have units, exist, approved
     expect(units.toString()).to.be.a("string");
     expect(exist).to.be.a("boolean");
     expect(approved).to.be.a("boolean");
+  });
+
+  it("should get index details with idav1", async () => {
+    const indexId = 0;
+    const publisher = "0x018762341dda10cfaa2fc19966d2279dc70b6784";
+
+    const { exist, indexValue, totalUnitsApproved, totalUnitsPending } =
+      await idav1.methods.getIndex(token, publisher, indexId).call();
+    // expect to have indexValue, exist, totalUnitsApproved, totalUnitsPending
+    expect(indexValue.toString()).to.be.a("string");
+    expect(exist).to.be.a("boolean");
+    expect(totalUnitsApproved.toString()).to.be.a("string");
+    expect(totalUnitsPending.toString()).to.be.a("string");
   });
 
   it("should check if address is trusted forwarder using host", async () => {
