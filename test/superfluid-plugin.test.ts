@@ -90,10 +90,12 @@ describe("SuperfluidPlugin Method Tests", () => {
     expect(flowRate.toString()).to.be.a("string");
   });
 
-  it("should get subscription with idav1", async () => {
-    const indexId = 0;
+  it("should get token IDA subscription details with idav1", async () => {
+    // Test data: Mumbai testnet
+    const token = "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f"; //fDAIx on Mumbai
     const publisher = "0x018762341dda10cfaa2fc19966d2279dc70b6784";
     const subscriber = "0x18e23191359f9dc403ba2942b87a896535c935c4";
+    const indexId = 0;
 
     const { units, exist, approved } = await idav1.methods
       .getSubscription(token, publisher, indexId, subscriber)
@@ -104,9 +106,11 @@ describe("SuperfluidPlugin Method Tests", () => {
     expect(approved).to.be.a("boolean");
   });
 
-  it("should get index details with idav1", async () => {
-    const indexId = 0;
+  it("should get token IDA index details with idav1", async () => {
+    // Test data: Mumbai testnet
+    const token = "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f"; //fDAIx on Mumbai
     const publisher = "0x018762341dda10cfaa2fc19966d2279dc70b6784";
+    const indexId = 0;
 
     const { exist, indexValue, totalUnitsApproved, totalUnitsPending } =
       await idav1.methods.getIndex(token, publisher, indexId).call();
