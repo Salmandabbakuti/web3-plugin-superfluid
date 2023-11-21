@@ -2,10 +2,12 @@ import { Contract, Web3PluginBase, validator } from "web3";
 import cfav1ForwarderAbi from "./abis/cfav1Forwarder";
 import hostAbi from "./abis/host";
 import cfav1Abi from "./abis/cfav1";
+import idav1Abi from "./abis/idav1";
 
 export type CFAV1Forwarder = Contract<typeof cfav1ForwarderAbi>;
 export type Host = Contract<typeof hostAbi>;
 export type CFAV1 = Contract<typeof cfav1Abi>;
+export type IDAV1 = Contract<typeof idav1Abi>;
 
 export class SuperfluidPlugin extends Web3PluginBase {
   public pluginNamespace = "superfluid";
@@ -48,6 +50,26 @@ export class SuperfluidPlugin extends Web3PluginBase {
     const cfav1Contract = new Contract(cfav1Abi, address);
     cfav1Contract.link(this);
     return cfav1Contract;
+  }
+
+  /**
+   * This method creates Superfluid's IDAV1 Contract instance of connected chain
+   * @param address IDAV1 Contract Address of connected chain
+   * @returns IDAV1 Contract instance
+   * @throws Error if address is not a valid address
+   * @example
+   * ```typescript
+   * const web3 = new Web3("http://127.0.0.1:8545");
+   * web3.registerPlugin(new SuperfluidPlugin());
+   * const idav1 = web3.superfluid.idav1(idav1Address);
+   * ```
+   */
+  public idav1(address: string): IDAV1 {
+    if (!validator.isAddress(address))
+      throw new Error("Superfluid Plugn: Invalid IDA Address");
+    const idav1Contract = new Contract(idav1Abi, address);
+    idav1Contract.link(this);
+    return idav1Contract;
   }
 
   /**

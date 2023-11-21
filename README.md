@@ -1,16 +1,16 @@
 # Superfluid Web3 Plugin
 
-[![npm version](https://img.shields.io/badge/npm-0.1.0-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
+[![npm version](https://img.shields.io/badge/npm-0.2.0-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
 
 The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Superfluid Money Streaming Protocol](https://superfluid.finance). This plugin provides convenient methods for creating, updating, deleting, and retrieving information related to money streams using CFAForwarder and host contracts.
 
-### Features
+#### Supported Features:
 
 - [Money Streaming(CFA)](https://docs.superfluid.finance/superfluid/developers/constant-flow-agreement-cfa)
 
 - [Superfluid Host](https://docs.superfluid.finance/superfluid/protocol-overview/in-depth-overview/superfluid-host)
 
-- [Distributions(IDA)](https://docs.superfluid.finance/superfluid/developers/instant-distribution-agreement-ida) - Coming Soon
+- [Distributions(IDA)](https://docs.superfluid.finance/superfluid/developers/instant-distribution-agreement-ida)
 
 ## Installation
 
@@ -64,8 +64,10 @@ web3.registerPlugin(new SuperfluidPlugin());
 const cfav1ForwarderAddress = "0x..."; // varies based on network
 const cfav1Address = "0x..."; // varies based on network
 const hostAddress = "0x..."; // varies based on network
+const idav1Address = "0x..."; // varies based on network
 const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
 const cfav1 = web3.superfluid.cfav1(cfav1Address);
+const idav1 = web3.superfluid.idav1(idav1Address);
 const host = web3.superfluid.host(hostAddress);
 ```
 
@@ -86,12 +88,16 @@ web3.registerPlugin(new SuperfluidPlugin());
 const cfav1ForwarderAddress = "0x..."; // varies based on network
 const cfav1Address = "0x..."; // varies based on network
 const hostAddress = "0x..."; // varies based on network
+const idav1Address = "0x..."; // varies based on network
 const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
 const host = web3.superfluid.host(hostAddress);
 const cfav1 = web3.superfluid.cfav1(cfav1Address);
+const idav1 = web3.superfluid.idav1(idav1Address);
 ```
 
-### Creating flow:
+### Money Streaming(CFA):
+
+#### Creating flow:
 
 ```js
 // using cfav1forwarder
@@ -109,7 +115,7 @@ const tx = await host.methods
   .send({ from: account });
 ```
 
-### Updating flow:
+#### Updating flow:
 
 ```js
 // using cfav1forwarder
@@ -127,7 +133,7 @@ const tx = await host.methods
   .send({ from: account });
 ```
 
-### Deleting flow:
+#### Deleting flow:
 
 ```js
 // using cfav1forwarder
@@ -145,7 +151,7 @@ const tx = await host.methods
   .send({ from: account });
 ```
 
-### Retrieving flow:
+#### Retrieving flow:
 
 ```js
 // with cfav1forwarder
@@ -157,7 +163,37 @@ const flow = await cfav1Forwarder.methods
 const flow = await cfav1.methods.getFlow(token, sender, receiver).call();
 ```
 
-Refer [Superfluid docs](https://docs.superfluid.finance/superfluid/developers/constant-flow-agreement-cfa) for more on respective contract methods.
+Refer [Superfluid CFA docs](https://docs.superfluid.finance/superfluid/developers/constant-flow-agreement-cfa) for more on respective contract methods.
+
+### Distributions(IDA):
+
+#### Creating Index:
+
+```js
+const callData = idav1.methods.createIndex(token, indexId, "0x").encodeABI();
+
+const tx = await host.methods
+  .callAgreement(idav1Address, callData, "0x")
+  .send({ from: account });
+```
+
+#### Getting Subscription:
+
+```js
+const { units, exist, approved } = await idav1.methods
+  .getSubscription(token, publisher, indexId, subscriber)
+  .call();
+```
+
+#### Getting Index:
+
+```js
+const { exist, totalUnitsApproved, totalUnitsPending } = await idav1.methods
+  .getIndex(token, publisher, indexId)
+  .call();
+```
+
+Refer [Superfluid IDA docs](https://docs.superfluid.finance/superfluid/developers/instant-distribution-agreement-ida) for more on respective contract methods.
 
 ### Publishing
 
@@ -170,6 +206,11 @@ npm publish
 ```
 
 ## Change Log
+
+#### 0.2.0
+
+- Added support for IDAv1 contract
+- IDAv1 examples, tests, and docs
 
 #### 0.1.0
 
