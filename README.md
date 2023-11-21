@@ -8,7 +8,7 @@ The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to
 
 - [Money Streaming(CFA)](https://docs.superfluid.finance/superfluid/developers/constant-flow-agreement-cfa)
 
-- [Superfluid Host](https://docs.superfluid.finance/superfluid/protocol-tutorials/protocol-tutorial-host)
+- [Superfluid Host](https://docs.superfluid.finance/superfluid/protocol-overview/in-depth-overview/superfluid-host)
 
 - [Distributions(IDA)](https://docs.superfluid.finance/superfluid/developers/instant-distribution-agreement-ida) - Coming Soon
 
@@ -148,9 +148,13 @@ const tx = await host.methods
 ### Retrieving flow:
 
 ```js
+// with cfav1forwarder
 const flow = await cfav1Forwarder.methods
   .getFlowInfo(token, sender, receiver)
   .call();
+
+// with cfav1
+const flow = await cfav1.methods.getFlow(token, sender, receiver).call();
 ```
 
 Refer [Superfluid docs](https://docs.superfluid.finance/superfluid/developers/constant-flow-agreement-cfa) for more on respective contract methods.
