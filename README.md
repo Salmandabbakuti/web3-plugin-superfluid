@@ -8,9 +8,9 @@ The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to
 
 - [Money Streaming(CFA)](https://docs.superfluid.finance/superfluid/developers/constant-flow-agreement-cfa)
 
-- [Distributions(IDA)](https://docs.superfluid.finance/superfluid/developers/instant-distribution-agreement-ida)
+- [Superfluid Host](https://docs.superfluid.finance/superfluid/protocol-overview/in-depth-overview/superfluid-host)
 
-- [Superfluid Host](https://polygonscan.com/address/0x3E14dC1b13c488a8d5D310918780c983bD5982E7#writeProxyContract)
+- [Distributions(IDA)](https://docs.superfluid.finance/superfluid/developers/instant-distribution-agreement-ida)
 
 ## Installation
 
