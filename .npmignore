@@ -1,7 +1,6 @@
 src/
 test/
 
-
 # Executables
 *.swf
 *.air

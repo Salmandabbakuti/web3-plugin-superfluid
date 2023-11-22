@@ -1,8 +1,8 @@
 # Superfluid Web3 Plugin
 
-[![npm version](https://img.shields.io/badge/npm-0.2.0-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
+[![npm version](https://img.shields.io/badge/npm-0.2.1-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
 
-The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Superfluid Money Streaming Protocol](https://superfluid.finance). This plugin provides convenient methods for creating, updating, deleting, and retrieving information related to money streams using CFAForwarder and host contracts.
+The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Superfluid Protocol](https://superfluid.finance). This plugin provides convenient methods for interacting with the Superfluid protocol contracts.
 
 #### Supported Features:
 
@@ -31,18 +31,33 @@ import { SuperfluidPlugin } from "web3-plugin-superfluid";
 const web3 = new Web3("http://localhost:8545"); // Any RPC node you wanted to connect with
 web3.registerPlugin(new SuperfluidPlugin());
 
-const cfav1ForwarderAddress = "0x..."; // varies based on network
+// Contract Addresses vary from network to network
+const cfav1ForwarderAddress = "0x...";
+const cfav1Address = "0x...";
+const hostAddress = "0x...";
+const idav1Address = "0x...";
+
+// Contract Instances
 const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
+const cfav1 = web3.superfluid.cfav1(cfav1Address);
+const idav1 = web3.superfluid.idav1(idav1Address);
+const host = web3.superfluid.host(hostAddress);
 
 const token = "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f"; //fDAIx on Mumbai
 const sender = "0xc7203561EF179333005a9b81215092413aB86aE9";
 const receiver = "0x7348943C8d263ea253c0541656c36b88becD77B9";
 
+// Getting FlowRate with cfav1Forwarder
 const flowRate = await cfav1Forwarder.methods
   .getFlowRate(token, sender, receiver)
   .call();
 
 console.log("FlowRate: ", flowRate.toString());
+
+// Getting Flow Info with cfav1
+const flow = await cfav1.methods.getFlow(token, sender, receiver).call();
+
+console.log("Flow Info: ", flow);
 ```
 
 ### Connecting Accounts to Web3
@@ -61,10 +76,10 @@ const account = wallet.get(0);
 
 web3.registerPlugin(new SuperfluidPlugin());
 
-const cfav1ForwarderAddress = "0x..."; // varies based on network
-const cfav1Address = "0x..."; // varies based on network
-const hostAddress = "0x..."; // varies based on network
-const idav1Address = "0x..."; // varies based on network
+const cfav1ForwarderAddress = "0x...";
+const cfav1Address = "0x...";
+const hostAddress = "0x...";
+const idav1Address = "0x...";
 const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
 const cfav1 = web3.superfluid.cfav1(cfav1Address);
 const idav1 = web3.superfluid.idav1(idav1Address);
@@ -85,10 +100,10 @@ const [account] = await window.ethereum.request({
 
 web3.registerPlugin(new SuperfluidPlugin());
 
-const cfav1ForwarderAddress = "0x..."; // varies based on network
-const cfav1Address = "0x..."; // varies based on network
-const hostAddress = "0x..."; // varies based on network
-const idav1Address = "0x..."; // varies based on network
+const cfav1ForwarderAddress = "0x...";
+const cfav1Address = "0x...";
+const hostAddress = "0x...";
+const idav1Address = "0x...";
 const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
 const host = web3.superfluid.host(hostAddress);
 const cfav1 = web3.superfluid.cfav1(cfav1Address);
@@ -206,6 +221,10 @@ npm publish
 ```
 
 ## Change Log
+
+#### 0.2.1
+
+- Updated README.md examples and docs
 
 #### 0.2.0
 
