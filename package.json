@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "types": "dist/superfluid-plugin.d.ts",
   "scripts": {
-    "test": "mocha --r ts-node/register 'test/**/*.ts'",
+    "test": "jest --config=./test/jest.config.js",
     "build": "tsc"
   },
   "contributors": [
@@ -23,11 +23,11 @@
     "web3": ">= 4.0.3"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.11",
-    "@types/mocha": "^10.0.6",
-    "chai": "^4.3.10",
-    "mocha": "^10.2.0",
-    "ts-node": "^10.9.1",
+    "@types/jest": "^29.5.10",
+    "@types/node": "^20.9.4",
+    "jest": "^29.7.0",
+    "jest-extended": "^4.0.2",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.3.2",
     "web3": "^4.2.2"
   },
