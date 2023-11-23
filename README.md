@@ -1,6 +1,6 @@
 # Superfluid Web3 Plugin
 
-[![npm version](https://img.shields.io/badge/npm-0.2.1-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
+[![npm version](https://img.shields.io/badge/npm-0.2.2-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
 
 The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Superfluid Protocol](https://superfluid.finance). This plugin provides convenient methods for interacting with the Superfluid protocol contracts.
 
@@ -14,7 +14,7 @@ The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to
 
 ## Installation
 
-> Note: Make sure you are using `web3` version 4.0.2 or higher in your project.
+> Note: Make sure you are using `web3` version 4.0.3 or higher in your project.
 
 ```bash
 npm install web3-plugin-superfluid web3@latest --save
