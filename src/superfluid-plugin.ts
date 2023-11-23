@@ -26,7 +26,7 @@ export class SuperfluidPlugin extends Web3PluginBase {
    */
   public cfav1Forwarder(address: string): CFAV1Forwarder {
     if (!validator.isAddress(address))
-      throw new Error("Superfluid Plugn: Invalid CFA Forwarder Address");
+      throw new Error("Superfluid Plugin: Invalid CFA Forwarder Address");
     const cfav1ForwarderContract = new Contract(cfav1ForwarderAbi, address);
     cfav1ForwarderContract.link(this);
     return cfav1ForwarderContract;
@@ -46,7 +46,7 @@ export class SuperfluidPlugin extends Web3PluginBase {
    */
   public cfav1(address: string): CFAV1 {
     if (!validator.isAddress(address))
-      throw new Error("Superfluid Plugn: Invalid CFA Address");
+      throw new Error("Superfluid Plugin: Invalid CFA Address");
     const cfav1Contract = new Contract(cfav1Abi, address);
     cfav1Contract.link(this);
     return cfav1Contract;
@@ -66,7 +66,7 @@ export class SuperfluidPlugin extends Web3PluginBase {
    */
   public idav1(address: string): IDAV1 {
     if (!validator.isAddress(address))
-      throw new Error("Superfluid Plugn: Invalid IDA Address");
+      throw new Error("Superfluid Plugin: Invalid IDA Address");
     const idav1Contract = new Contract(idav1Abi, address);
     idav1Contract.link(this);
     return idav1Contract;
@@ -86,7 +86,7 @@ export class SuperfluidPlugin extends Web3PluginBase {
    */
   public host(address: string): Host {
     if (!validator.isAddress(address))
-      throw new Error("Superfluid Plugn: Invalid Host Address");
+      throw new Error("Superfluid Plugin: Invalid Host Address");
     const hostContract = new Contract(hostAbi, address);
     hostContract.link(this);
     return hostContract;
