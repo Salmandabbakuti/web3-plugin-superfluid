@@ -71,23 +71,23 @@ describe("SuperfluidPlugin Method Tests", () => {
     const { lastUpdated, flowrate } = await cfav1Forwarder.methods
       .getFlowInfo(token, sender, receiver)
       .call();
-    expect(lastUpdated.toString()).to.be.a("string");
-    expect(flowrate.toString()).to.be.a("string");
+    expect(lastUpdated).to.be.a("bigint");
+    expect(flowrate).to.be.a("bigint");
   });
 
   it("should get flowrate with forwarder", async () => {
     const flowrate = await cfav1Forwarder.methods
       .getFlowrate(token, sender, receiver)
       .call();
-    expect(flowrate.toString()).to.be.a("string");
+    expect(flowrate).to.be.a("bigint");
   });
 
   it("should get flow info with cfav1", async () => {
     const { timestamp, flowRate } = await cfav1.methods
       .getFlow(token, sender, receiver)
       .call();
-    expect(timestamp.toString()).to.be.a("string");
-    expect(flowRate.toString()).to.be.a("string");
+    expect(timestamp).to.be.a("bigint");
+    expect(flowRate).to.be.a("bigint");
   });
 
   it("should get token IDA subscription details with idav1", async () => {
@@ -101,7 +101,7 @@ describe("SuperfluidPlugin Method Tests", () => {
       .getSubscription(token, publisher, indexId, subscriber)
       .call();
     // expect to have units, exist, approved
-    expect(units.toString()).to.be.a("string");
+    expect(units).to.be.a("bigint");
     expect(exist).to.be.a("boolean");
     expect(approved).to.be.a("boolean");
   });
@@ -115,10 +115,10 @@ describe("SuperfluidPlugin Method Tests", () => {
     const { exist, indexValue, totalUnitsApproved, totalUnitsPending } =
       await idav1.methods.getIndex(token, publisher, indexId).call();
     // expect to have indexValue, exist, totalUnitsApproved, totalUnitsPending
-    expect(indexValue.toString()).to.be.a("string");
+    expect(indexValue).to.be.a("bigint");
     expect(exist).to.be.a("boolean");
-    expect(totalUnitsApproved.toString()).to.be.a("string");
-    expect(totalUnitsPending.toString()).to.be.a("string");
+    expect(totalUnitsApproved).to.be.a("bigint");
+    expect(totalUnitsPending).to.be.a("bigint");
   });
 
   it("should check if address is trusted forwarder using host", async () => {
