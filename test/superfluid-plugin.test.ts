@@ -48,6 +48,27 @@ describe("SuperfluidPlugin Tests", () => {
     expect(web3EthContext.superfluid.idav1).toBeInstanceOf(Function);
     expect(web3EthContext.superfluid.host).toBeInstanceOf(Function);
   });
+
+  it("should throw error if address passed to plugin functions is not valid", () => {
+    const web3 = new Web3("http://127.0.0.1:8545");
+    web3.registerPlugin(new SuperfluidPlugin());
+
+    expect(() => {
+      web3.superfluid.cfav1Forwarder("0x123");
+    }).toThrow("Superfluid Plugin: Invalid CFA Forwarder Address");
+
+    expect(() => {
+      web3.superfluid.cfav1("0x123");
+    }).toThrow("Superfluid Plugin: Invalid CFA Address");
+
+    expect(() => {
+      web3.superfluid.idav1("0x123");
+    }).toThrow("Superfluid Plugin: Invalid IDA Address");
+
+    expect(() => {
+      web3.superfluid.host("0x123");
+    }).toThrow("Superfluid Plugin: Invalid Host Address");
+  });
 });
 
 describe("SuperfluidPlugin Method Tests", () => {

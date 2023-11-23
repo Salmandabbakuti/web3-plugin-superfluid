@@ -1,6 +1,6 @@
 # Superfluid Web3 Plugin
 
-[![npm version](https://img.shields.io/badge/npm-0.2.2-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
+[![npm version](https://img.shields.io/badge/npm-0.2.3-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
 
 The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Superfluid Protocol](https://superfluid.finance). This plugin provides convenient methods for interacting with the Superfluid protocol contracts.
 
@@ -221,6 +221,11 @@ npm publish
 ```
 
 ## Change Log
+
+#### 0.2.3
+
+- Using jest for tests instead of mocha
+- Added tests for invalid address to cfav1Forwarder, cfav1, idav1, host
 
 #### 0.2.1
 
