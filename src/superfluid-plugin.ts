@@ -14,11 +14,11 @@ export class SuperfluidPlugin extends Web3PluginBase {
 
   /**
    * This method creates Superfluid's CFAV1Forwarder Contract instance of connected chain
-   * @param address CFAV1Forwarder Contract Address of connected chain
+   * @param address - CFAV1Forwarder Contract Address of connected chain
    * @returns CFAV1Forwarder Contract instance
    * @throws Error if address is not a valid address
    * @example
-   * ```typescript
+   * ```ts
    * const web3 = new Web3("http://127.0.0.1:8545");
    * web3.registerPlugin(new SuperfluidPlugin());
    * const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
@@ -34,11 +34,11 @@ export class SuperfluidPlugin extends Web3PluginBase {
 
   /**
    * This method creates Superfluid's CFAV1 Contract instance of connected chain
-   * @param address CFAV1 Contract Address of connected chain
+   * @param address - CFAV1 Contract Address of connected chain
    * @returns CFAV1 Contract instance
    * @throws Error if address is not a valid address
    * @example
-   * ```typescript
+   * ```ts
    * const web3 = new Web3("http://127.0.0.1:8545");
    * web3.registerPlugin(new SuperfluidPlugin());
    * const cfav1 = web3.superfluid.cfav1(cfav1Address);
@@ -54,11 +54,11 @@ export class SuperfluidPlugin extends Web3PluginBase {
 
   /**
    * This method creates Superfluid's IDAV1 Contract instance of connected chain
-   * @param address IDAV1 Contract Address of connected chain
+   * @param address - IDAV1 Contract Address of connected chain
    * @returns IDAV1 Contract instance
    * @throws Error if address is not a valid address
    * @example
-   * ```typescript
+   * ```ts
    * const web3 = new Web3("http://127.0.0.1:8545");
    * web3.registerPlugin(new SuperfluidPlugin());
    * const idav1 = web3.superfluid.idav1(idav1Address);
@@ -74,11 +74,11 @@ export class SuperfluidPlugin extends Web3PluginBase {
 
   /**
    * This method creates Superfluid's Host Contract instance of connected chain
-   * @param address Host Contract Address of connected chain
+   * @param address - Host Contract Address of connected chain
    * @throws Error if address is not a valid address
    * @returns Host Contract instance
    * @example
-   * ```typescript
+   * ```ts
    * const web3 = new Web3("http://127.0.0.1:8545");
    * web3.registerPlugin(new SuperfluidPlugin());
    * const host = web3.superfluid.host(hostAddress);

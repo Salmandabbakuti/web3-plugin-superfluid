@@ -6,8 +6,14 @@ name: Build & Test
 on:
   push:
     branches: [main, develop, "feat/*"]
+    paths-ignore:
+      - "README.md"
+      - "LICENSE"
   pull_request:
-    branches: [main, develop, "feat/*"]
+    branches: [main]
+    paths-ignore:
+      - "README.md"
+      - "LICENSE"
 
 jobs:
   e2e-test:

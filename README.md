@@ -1,6 +1,6 @@
 # Superfluid Web3 Plugin
 
-[![npm version](https://img.shields.io/badge/npm-0.2.4-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
+[![npm version](https://img.shields.io/badge/npm-0.2.5-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
 
 The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Superfluid Protocol](https://superfluid.finance). This plugin provides convenient methods for interacting with the Superfluid protocol contracts.
 
@@ -62,38 +62,17 @@ console.log("Flow Info: ", flow);
 
 ### Connecting Accounts to Web3
 
-#### With Private Key
-
 ```js
 import { Web3 } from "web3";
 import { SuperfluidPlugin } from "web3-plugin-superfluid";
 
-const web3 = new Web3("https://rpc-mumbai.maticvigil.com/"); // Any RPC node you wanted to connect with
+// With any RPC node and private key
+const web3 = new Web3("https://rpc-mumbai.maticvigil.com/");
+const wallet = web3.eth.accounts.wallet.add("0x..."); // Private Key
+const { address: account } = wallet[0];
 
-// Adding account to web3 with private key
-const wallet = web3.eth.accounts.wallet.add("0x..."); // private key
-const account = wallet.get(0);
-
-web3.registerPlugin(new SuperfluidPlugin());
-
-const cfav1ForwarderAddress = "0x...";
-const cfav1Address = "0x...";
-const hostAddress = "0x...";
-const idav1Address = "0x...";
-const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
-const cfav1 = web3.superfluid.cfav1(cfav1Address);
-const idav1 = web3.superfluid.idav1(idav1Address);
-const host = web3.superfluid.host(hostAddress);
-```
-
-#### With Browser Wallets(i.e Metamask)
-
-```js
-import { Web3 } from "web3";
-import { SuperfluidPlugin } from "web3-plugin-superfluid";
-
+// or with browser wallets
 const web3 = new Web3(window.ethereum);
-
 const [account] = await window.ethereum.request({
   method: "eth_requestAccounts"
 });
@@ -221,6 +200,10 @@ npm publish
 ```
 
 ## Change Log
+
+#### 0.2.5
+
+- Updated README.md examples and TSDoc
 
 #### 0.2.3
 
