@@ -1,4 +1,5 @@
 import { Contract, Web3PluginBase, validator } from "web3";
+import sfMeta from "@superfluid-finance/metadata";
 import cfav1ForwarderAbi from "./abis/cfav1Forwarder";
 import hostAbi from "./abis/host";
 import cfav1Abi from "./abis/cfav1";
@@ -8,6 +9,13 @@ export type CFAV1Forwarder = Contract<typeof cfav1ForwarderAbi>;
 export type Host = Contract<typeof hostAbi>;
 export type CFAV1 = Contract<typeof cfav1Abi>;
 export type IDAV1 = Contract<typeof idav1Abi>;
+export type ProtocolContractAddresses = {
+  cfaV1: string;
+  cfaV1Forwarder: string;
+  idaV1: string;
+  host: string;
+  [key: string]: any;
+};
 
 export class SuperfluidPlugin extends Web3PluginBase {
   public pluginNamespace = "superfluid";
@@ -90,6 +98,28 @@ export class SuperfluidPlugin extends Web3PluginBase {
     const hostContract = new Contract(hostAbi, address);
     hostContract.link(this);
     return hostContract;
+  }
+
+  /**
+   * This method returns Superfluid protocol contract addresses of given chainId
+   * @param chainId - ChainId of the network to get contract addresses of
+   * @throws Error if chainId is not supported
+   * @returns Protocol contract addresses object
+   * @example
+   * ```ts
+   * const web3 = new Web3("https://rpc-mumbai.maticvigil.com");
+   * web3.registerPlugin(new SuperfluidPlugin());
+   * const addresses = web3.superfluid.contractAddresses(80001);
+   * ```
+   */
+
+  public contractAddresses(chainId: number): ProtocolContractAddresses {
+    const networkMetadata = sfMeta.networks.find(
+      (network) => network.chainId === chainId
+    );
+    if (!networkMetadata)
+      throw new Error("Superfluid Plugin: Unsupported ChainId");
+    return networkMetadata.contractsV1;
   }
 }
 

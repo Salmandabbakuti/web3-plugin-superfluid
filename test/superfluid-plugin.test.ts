@@ -1,13 +1,10 @@
 import { Web3, Web3Eth, Web3Context } from "web3";
 import { SuperfluidPlugin, CFAV1Forwarder, CFAV1, IDAV1, Host } from "../src";
 
-// Test data: Mumbai testnet
+// Test data: Mumbai testnet: 80001
 // https://console.superfluid.finance/mumbai/protocol
+const chainId = 80001;
 const rpcUrl = "https://rpc-mumbai.maticvigil.com";
-const cfav1ForwarderAddress = "0xcfA132E353cB4E398080B9700609bb008eceB125";
-const cfav1Address = "0x49e565Ed1bdc17F3d220f72DF0857C26FA83F873";
-const idav1Address = "0x804348D4960a61f2d5F9ce9103027A3E849E09b8";
-const hostAddress = "0xEB796bdb90fFA0f28255275e16936D25d3418603";
 const token = "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f"; //fDAIx on Mumbai
 const sender = "0xc7203561EF179333005a9b81215092413aB86aE9";
 const receiver = "0x7348943C8d263ea253c0541656c36b88becD77B9";
@@ -23,6 +20,7 @@ describe("SuperfluidPlugin Tests", () => {
     expect(web3.superfluid.cfav1).toBeInstanceOf(Function);
     expect(web3.superfluid.idav1).toBeInstanceOf(Function);
     expect(web3.superfluid.host).toBeInstanceOf(Function);
+    expect(web3.superfluid.contractAddresses).toBeInstanceOf(Function);
   });
 
   it("should register Superfluid plugin to Web3Context", () => {
@@ -35,6 +33,7 @@ describe("SuperfluidPlugin Tests", () => {
     expect(web3Context.superfluid.cfav1).toBeInstanceOf(Function);
     expect(web3Context.superfluid.idav1).toBeInstanceOf(Function);
     expect(web3Context.superfluid.host).toBeInstanceOf(Function);
+    expect(web3Context.superfluid.contractAddresses).toBeInstanceOf(Function);
   });
 
   it("should register Superfluid plugin to Web3Eth", () => {
@@ -47,6 +46,9 @@ describe("SuperfluidPlugin Tests", () => {
     expect(web3EthContext.superfluid.cfav1).toBeInstanceOf(Function);
     expect(web3EthContext.superfluid.idav1).toBeInstanceOf(Function);
     expect(web3EthContext.superfluid.host).toBeInstanceOf(Function);
+    expect(web3EthContext.superfluid.contractAddresses).toBeInstanceOf(
+      Function
+    );
   });
 
   it("should throw error if address passed to plugin functions is not valid", () => {
@@ -81,13 +83,29 @@ describe("SuperfluidPlugin Method Tests", () => {
   beforeAll(() => {
     web3 = new Web3(rpcUrl);
     web3.registerPlugin(new SuperfluidPlugin());
-    cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
-    cfav1 = web3.superfluid.cfav1(cfav1Address);
-    host = web3.superfluid.host(hostAddress);
-    idav1 = web3.superfluid.idav1(idav1Address);
+    const addresses = web3.superfluid.contractAddresses(chainId);
+    cfav1Forwarder = web3.superfluid.cfav1Forwarder(addresses.cfaV1Forwarder);
+    cfav1 = web3.superfluid.cfav1(addresses.cfaV1);
+    host = web3.superfluid.host(addresses.host);
+    idav1 = web3.superfluid.idav1(addresses.idaV1);
   });
 
-  it("should get flow info with forwarder", async () => {
+  it("contractAddresses: should throw error if chainId is not supported", () => {
+    expect(() => {
+      web3.superfluid.contractAddresses(123);
+    }).toThrow("Superfluid Plugin: Unsupported ChainId");
+  });
+
+  it("contractAddresses: should get contract addresses for given chainId", () => {
+    const addresses = web3.superfluid.contractAddresses(chainId);
+    expect(addresses).toBeInstanceOf(Object);
+    expect(addresses).toHaveProperty("cfaV1Forwarder");
+    expect(addresses).toHaveProperty("cfaV1");
+    expect(addresses).toHaveProperty("idaV1");
+    expect(addresses).toHaveProperty("host");
+  });
+
+  it("cfav1Forwarder: should get flow info", async () => {
     const { lastUpdated, flowrate } = await cfav1Forwarder.methods
       .getFlowInfo(token, sender, receiver)
       .call();
@@ -95,14 +113,14 @@ describe("SuperfluidPlugin Method Tests", () => {
     expect(typeof flowrate).toBe("bigint");
   });
 
-  it("should get flowrate with forwarder", async () => {
+  it("cfav1Forwarder: should get flowrate", async () => {
     const flowrate = await cfav1Forwarder.methods
       .getFlowrate(token, sender, receiver)
       .call();
     expect(typeof flowrate).toBe("bigint");
   });
 
-  it("should get flow info with cfav1", async () => {
+  it("cfav1: should get flow info", async () => {
     const { timestamp, flowRate } = await cfav1.methods
       .getFlow(token, sender, receiver)
       .call();
@@ -110,7 +128,7 @@ describe("SuperfluidPlugin Method Tests", () => {
     expect(typeof flowRate).toBe("bigint");
   });
 
-  it("should get token IDA subscription details with idav1", async () => {
+  it("idav1: should get token IDA subscription details", async () => {
     // Test data: Mumbai testnet
     const token = "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f"; //fDAIx on Mumbai
     const publisher = "0x018762341dda10cfaa2fc19966d2279dc70b6784";
@@ -125,7 +143,7 @@ describe("SuperfluidPlugin Method Tests", () => {
     expect(typeof approved).toBe("boolean");
   });
 
-  it("should get token IDA index details with idav1", async () => {
+  it("idav1: should get token IDA index details", async () => {
     // Test data: Mumbai testnet
     const token = "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f"; //fDAIx on Mumbai
     const publisher = "0x018762341dda10cfaa2fc19966d2279dc70b6784";
@@ -139,7 +157,9 @@ describe("SuperfluidPlugin Method Tests", () => {
     expect(typeof totalUnitsPending).toBe("bigint");
   });
 
-  it("should check if address is trusted forwarder using host", async () => {
+  it("host: should check if address is trusted forwarder", async () => {
+    // Test data: Mumbai testnet
+    const cfav1ForwarderAddress = "0xcfA132E353cB4E398080B9700609bb008eceB125";
     const result = await host.methods
       .isTrustedForwarder(cfav1ForwarderAddress)
       .call();

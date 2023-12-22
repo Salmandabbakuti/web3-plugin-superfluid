@@ -1,6 +1,6 @@
 # Superfluid Web3 Plugin
 
-[![npm version](https://img.shields.io/badge/npm-0.2.5-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
+[![npm version](https://img.shields.io/badge/npm-0.2.6-brightgreen)](https://www.npmjs.com/package/web3-plugin-superfluid)
 
 The Superfluid Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Superfluid Protocol](https://superfluid.finance). This plugin provides convenient methods for interacting with the Superfluid protocol contracts.
 
@@ -28,20 +28,17 @@ npm install web3-plugin-superfluid web3@latest --save
 import { Web3 } from "web3";
 import { SuperfluidPlugin } from "web3-plugin-superfluid";
 
-const web3 = new Web3("http://localhost:8545"); // Any RPC node you wanted to connect with
+const web3 = new Web3("https://rpc-mumbai.maticvigil.com"); // Any RPC node you wanted to connect with
 web3.registerPlugin(new SuperfluidPlugin());
 
-// Contract Addresses vary from network to network
-const cfav1ForwarderAddress = "0x...";
-const cfav1Address = "0x...";
-const hostAddress = "0x...";
-const idav1Address = "0x...";
+// Getting contract addresses of the network
+const addresses = web3.superfluid.contractAddresses(80001); // chainId of the network
 
 // Contract Instances
-const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
-const cfav1 = web3.superfluid.cfav1(cfav1Address);
-const idav1 = web3.superfluid.idav1(idav1Address);
-const host = web3.superfluid.host(hostAddress);
+const cfav1Forwarder = web3.superfluid.cfav1Forwarder(addresses.cfaV1Forwarder);
+const cfav1 = web3.superfluid.cfav1(addresses.cfaV1);
+const host = web3.superfluid.host(addresses.host);
+const idav1 = web3.superfluid.idav1(addresses.idaV1);
 
 const token = "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f"; //fDAIx on Mumbai
 const sender = "0xc7203561EF179333005a9b81215092413aB86aE9";
@@ -79,14 +76,14 @@ const [account] = await window.ethereum.request({
 
 web3.registerPlugin(new SuperfluidPlugin());
 
-const cfav1ForwarderAddress = "0x...";
-const cfav1Address = "0x...";
-const hostAddress = "0x...";
-const idav1Address = "0x...";
-const cfav1Forwarder = web3.superfluid.cfav1Forwarder(cfav1ForwarderAddress);
-const host = web3.superfluid.host(hostAddress);
-const cfav1 = web3.superfluid.cfav1(cfav1Address);
-const idav1 = web3.superfluid.idav1(idav1Address);
+// Getting contract addresses of the network
+const addresses = web3.superfluid.contractAddresses(80001); // chainId of the network
+
+// Contract Instances
+const cfav1Forwarder = web3.superfluid.cfav1Forwarder(addresses.cfaV1Forwarder);
+const cfav1 = web3.superfluid.cfav1(addresses.cfaV1);
+const host = web3.superfluid.host(addresses.host);
+const idav1 = web3.superfluid.idav1(addresses.idaV1);
 ```
 
 ### Money Streaming(CFA):
@@ -200,6 +197,11 @@ npm publish
 ```
 
 ## Change Log
+
+#### 0.2.6
+
+- Added handy `contractAddresses` method to get contract addresses of the network
+- Updated tests and README.md examples with `contractAddresses` method
 
 #### 0.2.5
 
