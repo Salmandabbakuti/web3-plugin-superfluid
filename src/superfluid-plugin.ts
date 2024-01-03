@@ -9,13 +9,13 @@ export type CFAV1Forwarder = Contract<typeof cfav1ForwarderAbi>;
 export type Host = Contract<typeof hostAbi>;
 export type CFAV1 = Contract<typeof cfav1Abi>;
 export type IDAV1 = Contract<typeof idav1Abi>;
-export type ProtocolContractAddresses = {
+export interface ProtocolContractAddresses {
   cfaV1: string;
   cfaV1Forwarder: string;
   idaV1: string;
   host: string;
   [key: string]: any;
-};
+}
 
 export class SuperfluidPlugin extends Web3PluginBase {
   public pluginNamespace = "superfluid";
@@ -112,7 +112,6 @@ export class SuperfluidPlugin extends Web3PluginBase {
    * const addresses = web3.superfluid.contractAddresses(80001);
    * ```
    */
-
   public contractAddresses(chainId: number): ProtocolContractAddresses {
     const networkMetadata = sfMeta.networks.find(
       (network) => network.chainId === chainId

@@ -198,6 +198,11 @@ npm publish
 
 ## Change Log
 
+#### 0.2.7
+
+- Added example to show how to use the plugin in a react app
+- Few tsdoc improvements
+
 #### 0.2.6
 
 - Added handy `contractAddresses` method to get contract addresses of the network
