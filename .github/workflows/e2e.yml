@@ -9,11 +9,13 @@ on:
     paths-ignore:
       - "README.md"
       - "LICENSE"
+      - "example/**"
   pull_request:
     branches: [main]
     paths-ignore:
       - "README.md"
       - "LICENSE"
+      - "example/**"
 
 jobs:
   e2e-test:

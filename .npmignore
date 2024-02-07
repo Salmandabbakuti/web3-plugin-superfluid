@@ -1,6 +1,7 @@
 .github/
 src/
 test/
+example/
 
 # Executables
 *.swf
