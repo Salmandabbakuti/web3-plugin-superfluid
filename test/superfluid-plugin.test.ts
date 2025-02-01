@@ -1,13 +1,13 @@
 import { Web3, Web3Eth, Web3Context } from "web3";
 import { SuperfluidPlugin, CFAV1Forwarder, CFAV1, IDAV1, Host } from "../src";
 
-// Test data: Mumbai testnet: 80001
-// https://console.superfluid.finance/mumbai/protocol
-const chainId = 80001;
-const rpcUrl = "https://rpc-mumbai.maticvigil.com";
-const token = "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f"; //fDAIx on Mumbai
+// Test data: Sepolia testnet: 11155111
+// https://explorer.superfluid.finance/eth-sepolia/protocol
+const chainId = 11155111;
+const rpcUrl = "https://sepolia.drpc.org";
+const token = "0x9ce2062b085a2268e8d769ffc040f6692315fd2c"; //fDAIx on Sepolia
 const sender = "0xc7203561EF179333005a9b81215092413aB86aE9";
-const receiver = "0x7348943C8d263ea253c0541656c36b88becD77B9";
+const receiver = "0xdc7c5b449d4417a5aa01bf53ad280b1bedf4b078";
 
 describe("SuperfluidPlugin Tests", () => {
   it("should register Superfluid plugin to Web3", () => {
@@ -129,10 +129,10 @@ describe("SuperfluidPlugin Method Tests", () => {
   });
 
   it("idav1: should get token IDA subscription details", async () => {
-    // Test data: Mumbai testnet
-    const token = "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f"; //fDAIx on Mumbai
-    const publisher = "0x018762341dda10cfaa2fc19966d2279dc70b6784";
-    const subscriber = "0x18e23191359f9dc403ba2942b87a896535c935c4";
+    // Test data: Sepolia testnet
+    const token = "0x9ce2062b085a2268e8d769ffc040f6692315fd2c"; //fDAIx on Sepolia
+    const publisher = "0x2ba35b26b67889144f02d0bc3ab26f7e12c39123";
+    const subscriber = "0x6a89aba79880d810c286070d999fdcbac8d7cdaf";
     const indexId = 0;
 
     const { units, exist, approved } = await idav1.methods
@@ -144,9 +144,9 @@ describe("SuperfluidPlugin Method Tests", () => {
   });
 
   it("idav1: should get token IDA index details", async () => {
-    // Test data: Mumbai testnet
-    const token = "0x5d8b4c2554aeb7e86f387b4d6c00ac33499ed01f"; //fDAIx on Mumbai
-    const publisher = "0x018762341dda10cfaa2fc19966d2279dc70b6784";
+    // Test data: Sepolia testnet
+    const token = "0x9ce2062b085a2268e8d769ffc040f6692315fd2c"; //fDAIx on Sepolia
+    const publisher = "0x2ba35b26b67889144f02d0bc3ab26f7e12c39123";
     const indexId = 0;
 
     const { exist, indexValue, totalUnitsApproved, totalUnitsPending } =
@@ -158,7 +158,7 @@ describe("SuperfluidPlugin Method Tests", () => {
   });
 
   it("host: should check if address is trusted forwarder", async () => {
-    // Test data: Mumbai testnet
+    // Test data: Sepolia testnet
     const cfav1ForwarderAddress = "0xcfA132E353cB4E398080B9700609bb008eceB125";
     const result = await host.methods
       .isTrustedForwarder(cfav1ForwarderAddress)

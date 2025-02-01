@@ -120,6 +120,11 @@ export class SuperfluidPlugin extends Web3PluginBase {
       throw new Error("Superfluid Plugin: Unsupported ChainId");
     return networkMetadata.contractsV1;
   }
+
+  // example static method
+  public static example(): string {
+    return "example";
+  }
 }
 
 // Module Augmentation
